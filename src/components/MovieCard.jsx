@@ -20,8 +20,8 @@ const MovieCard = ({ movie: {
             />
             <div className="p-2">
                 <h3 className="font-bold">{title}</h3>
-                <p className="text-sm text-gray-500">{release_date} | {original_language.toUpperCase()}</p>
-                <p className="text-yellow-500">⭐ {vote_average}</p>
+                <p className="text-sm text-gray-500">{release_date ? release_date.split('-')[0] : 'N/A'} | {original_language ? original_language.toUpperCase() : 'N/A'}</p>
+                <p className="text-yellow-500">⭐ {vote_average ? vote_average.toFixed(1) : 'N/A'}</p>
             </div>
         </div>
     );

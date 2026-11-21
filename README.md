@@ -1,12 +1,37 @@
-# React + Vite
+# Movie App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Search thousands of movies and see which searches are trending.
 
-Currently, two official plugins are available:
+Built by [Aida Topalli](https://ida-eng.github.io/portfolio/).
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
 
-## Expanding the ESLint configuration
+- Search movies from the TMDB API, with debounced search as you type
+- Popular movies shown by default
+- Trending searches: every search is counted in an Appwrite database and the top 5 are shown
+- Responsive layout with Tailwind CSS and Framer Motion animations
 
-If you are developing a production application, we recommend using TypeScript and enable type-aware lint rules. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Tech stack
+
+React 19 · Vite · Tailwind CSS · Appwrite · TMDB API · Framer Motion
+
+## Run locally
+
+```bash
+npm install
+cp .env.example .env.local   # then add your own keys
+npm run dev
+```
+
+## Environment variables
+
+| Variable | Where to get it |
+| --- | --- |
+| `VITE_TMDB_API_KEY` | themoviedb.org → Settings → API → API Read Access Token |
+| `VITE_APPWRITE_PROJECT_ID` | Appwrite console → your project |
+| `VITE_APPWRITE_DATABASE_ID` | Appwrite console → Databases |
+| `VITE_APPWRITE_COLLECTION_ID` | Appwrite console → your collection (fields: `searchTerm`, `count`, `movie_id`, `title`, `poster_url`) |
+
+## Deploy
+
+Import the repo on Vercel, add the four environment variables above, and deploy.
