@@ -4,12 +4,13 @@ import { Client, Databases, ID, Query } from 'appwrite';
 const PROJECT_ID = import.meta.env.VITE_APPWRITE_PROJECT_ID;
 const DATABASE_ID = import.meta.env.VITE_APPWRITE_DATABASE_ID;
 const COLLECTION_ID = import.meta.env.VITE_APPWRITE_COLLECTION_ID;
+const ENDPOINT = import.meta.env.VITE_APPWRITE_ENDPOINT || 'https://cloud.appwrite.io/v1';
 
 // Appwrite eshte opsional: pa keto variabla, aplikacioni punon pa "Trending"
 const isConfigured = Boolean(PROJECT_ID && DATABASE_ID && COLLECTION_ID);
 
 const database = isConfigured
-    ? new Databases(new Client().setEndpoint('https://cloud.appwrite.io/v1').setProject(PROJECT_ID))
+    ? new Databases(new Client().setEndpoint(ENDPOINT).setProject(PROJECT_ID))
     : null;
 
 // Funksioni për të përditësuar ose shtuar kërkimet në Appwrite

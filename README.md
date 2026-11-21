@@ -29,6 +29,7 @@ npm run dev
 | --- | --- |
 | `VITE_TMDB_API_KEY` | themoviedb.org → Settings → API → API Read Access Token |
 | *Optional, for trending searches:* | |
+| `VITE_APPWRITE_ENDPOINT` | Appwrite console → project Settings → API Endpoint |
 | `VITE_APPWRITE_PROJECT_ID` | Appwrite console → your project |
 | `VITE_APPWRITE_DATABASE_ID` | Appwrite console → Databases |
 | `VITE_APPWRITE_COLLECTION_ID` | Appwrite console → your collection (fields: `searchTerm`, `count`, `movie_id`, `title`, `poster_url`) |
