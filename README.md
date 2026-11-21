@@ -28,10 +28,11 @@ npm run dev
 | Variable | Where to get it |
 | --- | --- |
 | `VITE_TMDB_API_KEY` | themoviedb.org → Settings → API → API Read Access Token |
+| *Optional, for trending searches:* | |
 | `VITE_APPWRITE_PROJECT_ID` | Appwrite console → your project |
 | `VITE_APPWRITE_DATABASE_ID` | Appwrite console → Databases |
 | `VITE_APPWRITE_COLLECTION_ID` | Appwrite console → your collection (fields: `searchTerm`, `count`, `movie_id`, `title`, `poster_url`) |
 
 ## Deploy
 
-Import the repo on Vercel, add the four environment variables above, and deploy.
+Import the repo on Vercel, add `VITE_TMDB_API_KEY` (and the Appwrite variables if you want trending searches), and deploy.

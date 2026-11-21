@@ -5,14 +5,16 @@ const PROJECT_ID = import.meta.env.VITE_APPWRITE_PROJECT_ID;
 const DATABASE_ID = import.meta.env.VITE_APPWRITE_DATABASE_ID;
 const COLLECTION_ID = import.meta.env.VITE_APPWRITE_COLLECTION_ID;
 
-const client = new Client()
-    .setEndpoint('https://cloud.appwrite.io/v1')
-    .setProject(PROJECT_ID);
+// Appwrite eshte opsional: pa keto variabla, aplikacioni punon pa "Trending"
+const isConfigured = Boolean(PROJECT_ID && DATABASE_ID && COLLECTION_ID);
 
-const database = new Databases(client);
+const database = isConfigured
+    ? new Databases(new Client().setEndpoint('https://cloud.appwrite.io/v1').setProject(PROJECT_ID))
+    : null;
 
 // Funksioni për të përditësuar ose shtuar kërkimet në Appwrite
 export const updateSearchCount = async (searchTerm, movie) => {
+    if (!database) return;
     try {
         // Kontrollo nëse searchTerm ekziston
         const result = await database.listDocuments(DATABASE_ID, COLLECTION_ID, [
@@ -43,6 +45,7 @@ export const updateSearchCount = async (searchTerm, movie) => {
 
 // Funksioni për të marrë trending movies sipas count-it
 export const getTrendingMovies = async () => {
+    if (!database) return [];
     try {
         const result = await database.listDocuments(DATABASE_ID, COLLECTION_ID, [
             Query.limit(5),
