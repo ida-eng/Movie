@@ -1,6 +1,7 @@
 import React from 'react';
 
-const MovieCard = ({ movie: {
+const MovieCard = ({ onSelect, movie: {
+    id,
     title,
     vote_average,
     poster_path,
@@ -12,7 +13,13 @@ const MovieCard = ({ movie: {
         : '/no-movie.png';
 
     return (
-        <div className="movie-card">
+        <div
+            className="movie-card cursor-pointer hover:scale-[1.03] transition-transform"
+            role="button"
+            tabIndex={0}
+            onClick={() => onSelect?.(id)}
+            onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && onSelect?.(id)}
+        >
             <img
                 src={imageUrl}
                 alt={title}

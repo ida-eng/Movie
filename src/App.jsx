@@ -1,21 +1,13 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Search from './components/Search.jsx';
 import Spinner from "./components/Spinner.jsx";
 import MovieCard from "./components/MovieCard.jsx";
+import MovieModal from "./components/MovieModal.jsx";
+import { API_BASE_URL, API_OPTIONS } from "./tmdb.js";
 import { useDebounce } from "react-use";
 import { getTrendingMovies, updateSearchCount } from "./appwrite.js";
 import { motion } from "framer-motion";
 
-const API_BASE_URL = 'https://api.themoviedb.org/3';
-const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
-
-const API_OPTIONS = {
-    method: 'GET',
-    headers: {
-        accept: 'application/json',
-        authorization: `Bearer ${API_KEY}`,
-    }
-};
 
 const App = () => {
     const [searchTerm, setSearchTerm] = useState('');
@@ -24,6 +16,8 @@ const App = () => {
     const [trendingMovies, setTrendingMovies] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [debouncedSearchTerm, setDebouncedSearchTerm] = useState('');
+    const [selectedId, setSelectedId] = useState(null);
+    const closeModal = useCallback(() => setSelectedId(null), []);
 
     useDebounce(() => setDebouncedSearchTerm(searchTerm), 500, [searchTerm]);
 
@@ -98,7 +92,7 @@ const App = () => {
                             <h2>Trending Movies</h2>
                             <ul>
                                 {trendingMovies.map((movie, index) => (
-                                    <li key={movie.$id}>
+                                    <li key={movie.$id} onClick={() => setSelectedId(movie.movie_id)} className="cursor-pointer">
                                         <p>{index + 1}</p>
                                         <img src={movie.poster_url} alt={movie.title} />
                                     </li>
@@ -116,13 +110,15 @@ const App = () => {
                         ) : (
                             <ul className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
                                 {movieList.map((movie) => (
-                                    <MovieCard key={movie.id} movie={movie} />
+                                    <MovieCard key={movie.id} movie={movie} onSelect={setSelectedId} />
                                 ))}
                             </ul>
                         )}
                     </section>
                 </div>
             </main>
+
+            <MovieModal movieId={selectedId} onClose={closeModal} />
 
             {/* Footer me animacion */}
             <motion.footer
